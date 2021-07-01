@@ -61,6 +61,7 @@ export interface IndexOptions {
 	sparse?: boolean
 	unique?: boolean
 	deduplicate?: boolean
+	geojson?: boolean
 }
 
 export interface DocumentData {

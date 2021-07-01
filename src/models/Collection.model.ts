@@ -166,6 +166,7 @@ export class Collection {
 
 			// create indices
 			for(let {options} of doc.indexes!){
+				logger.debug('Ensuring indexes "%s"', JSON.stringify(options));
 				this.db.ensureIndex(options);
 			}
 
