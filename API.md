@@ -15,13 +15,13 @@ A document represents a single entry of a collection.
 
 #### `Class`
 - [Entity](#-entity) - provides ORM functions to document instances
-  - [entity.insert](#entityinsert) - creates a document
-  - [entity.merge](#entitymergedoc) - merges an object into a document
-  - [entity.replace](#entityreplacedoc-options) - replaces a document
-  - [entity.remove](#entityremoveoptions) - deletes a document
-  - [entity.save](#entitysaveoptions) - saves property changes
-  - [entity._saveKeys](#entity_savekeys) - returns a list of modified properties
-  - [entity.related](#entityrelatedattribute-keepattributes) - returns related document/s
+    - [entity.insert](#entityinsert) - creates a document
+    - [entity.merge](#entitymergedoc) - merges an object into a document
+    - [entity.replace](#entityreplacedoc-options) - replaces a document
+    - [entity.remove](#entityremoveoptions) - deletes a document
+    - [entity.save](#entitysaveoptions) - saves property changes
+    - [entity._saveKeys](#entity_savekeys) - returns a list of modified properties
+    - [entity.related](#entityrelatedattribute-keepattributes) - returns related document/s
 
 #### `ClassDecrorator`
 - [@Document](#document) - initializes a new document
@@ -39,8 +39,8 @@ A document represents a single entry of a collection.
 
 #### `ClassAndPropertyDecorator`
 - [Listener](#-listener)
-  - [@Before.*](#beforeresolver) - Executes a resolver before requesting data from the database
-  - [@After.*](#afterresolver) - Executes a resolver after requesting data from the database
+    - [@Before.*](#beforeresolver) - Executes a resolver before requesting data from the database
+    - [@After.*](#afterresolver) - Executes a resolver after requesting data from the database
 
 ![divider](./assets/divider.small.png)
 
@@ -48,26 +48,26 @@ A document represents a single entry of a collection.
 
 A collection contains documents and provides routes and other utilities.
 
-#### `Class` 
+#### `Class`
 - [Entities](#-entities) - provides ORM functions
-  - [entities.find](#entitiesfindoptions) - returns document instances of the collection
-  - [entities.findOne](#entitiesfindoneoptions) - returns single document instance
+    - [entities.find](#entitiesfindoptions) - returns document instances of the collection
+    - [entities.findOne](#entitiesfindoneoptions) - returns single document instance
 
 #### `ClassDecorator`
 - [@Collection](#collectionofdocument-options) - initializes a collection
 - [@Route.use](#routeusemethods-options) - initializes routes by method
 - [@Route.groups](#routegroupscreators-readers-updaters-deleters) - defines roles for CRUD routes
 - [@Route.roles](#routerolesrolefunctions) - creates roles for requests by utilizing the client session
-- [@Route.auth](#routeauthauthorizefunctions) - authorizes a request depending on a document 
+- [@Route.auth](#routeauthauthorizefunctions) - authorizes a request depending on a document
 - [@Route.LIST]() - initializes a special route for fetching a list
 
 #### `ClassAndMethodDecorator`
-  - [@Route.GET](#routegetpath-schema-roles-summary-options)
-  - [@Route.POST](#routepostpath-schema-roles-summary-options)
-  - [@Route.PUT](#routeputpath-schema-roles-summary-options)
-  - [@Route.PATCH](#routepatchpath-schema-roles-summary-options)
-  - [@Route.DELETE](#routedeletepath-schema-roles-summary-options)
-  
+- [@Route.GET](#routegetpath-schema-roles-summary-options)
+- [@Route.POST](#routepostpath-schema-roles-summary-options)
+- [@Route.PUT](#routeputpath-schema-roles-summary-options)
+- [@Route.PATCH](#routepatchpath-schema-roles-summary-options)
+- [@Route.DELETE](#routedeletepath-schema-roles-summary-options)
+
 #### `MethodDecorator`
 - [@AQLFunction](#aqlfunctionisdeterministic-customname) - register an AQL function
 - [@Task](#taskperiod-name-params) - periodically execute a function
@@ -91,7 +91,7 @@ Types are used to better describe common patterns to store and retrieve attribut
 - 📜 [Enjoi](#-en-hanced-joi) `(Enjoi, Joi) => Joi` - Enhanced Joi making use of Types
 - [Client operators](#client-operators-inside-query-parameters) - Clients can provide operators inside query parameter values
 - ["CRUD-like"](#crud-like) - explained
-  
+
 ![divider](./assets/divider.png)
 
 ### 📝 Configuration
@@ -104,104 +104,104 @@ const complete = typeArango({
      * Available log levels are `Error`, `Warn`, `Info` & `Debug`
      */
     logLevel: LogLevel = LogLevel.Warn;
-    
+
     /**
      * Prefix the collection name by applying `module.context.collectionName` to it
      */
     prefixCollectionName: boolean = false;
-    
+
     /**
      * Display the source of your routes in Swagger
      */
     exposeRouteFunctionsToSwagger: boolean = true;
-    
+
     /**
      * Dasherize endpoints (eg `UserProfiles` becomes `user-profiles`)
      */
     dasherizeRoutes: boolean = true;
-    
+
     /**
      * Separator used to split a parameter value (ie /?x=LIKE|y)
      */
     paramOperatorSeparator: string = '|'
-    
+
     /**
      * Always add field writer roles to field reader roles
      * By default an `@Authorized(readers => ['user'], writers => ['admin'])`
      * evaluates to `readers = ['users','admin'], writers = ['admin']`
      */
     addAttributeWritersToFieldReaders: boolean = true;
-    
+
     /**
      * When using Type.I18n the defaultLocale is used when other locales do not match
      */
     defaultLocale: string = 'en';
-    
+
     /**
      * Whether to strip the `_id` key from documents
      */
     stripDocumentId: boolean = true;
-    
+
     /**
      * Whether to strip the `_rev` key from documents
      */
     stripDocumentRev: boolean = true;
-    
+
     /**
      * Whether to strip the `_key` key from documents
      */
     stripDocumentKey: boolean = false;
-    
+
     /**
      * Whether to execute aqlfunctions.unregisterGroup for every collection
      * Set to false when using custom AQL functions outside of type-arango
      */
     unregisterAQLFunctionEntityGroup: boolean = true;
-    
+
     /**
      * List of roles that are available for every request
      */
     providedRolesDefault: string[] = ['guest']
-    
+
     /**
      * List of required roles for a route when no other roles are defined
      */
     requiredRolesFallback: string[] = ['user']
-    
+
     /**
      * List of required writer roles for a route when no other roles are defined
      */
     requiredWriterRolesFallback: string[] = ['admin']
-    
+
     /**
      * Returns the roles of the current viewer user
      */
     getUserRoles = function(req: Foxx.Request): string[] {
         return (req.session && req.session.data && req.session.data.roles || []).concat('guest');
     };
-    
+
     /**
      * Returns all authorized roles for a request
      */
     getAuthorizedRoles = function(providedRoles: string[], requiredRoles: string[]): string[] {
         return providedRoles.filter((role: string) => requiredRoles.includes(role));
     }
-    
+
     /**
      * HTTP Status to return when an unauthorized (no auth provided) request occurs
      */
     throwUnauthorized: ArangoDB.HttpStatus = 'unauthorized';
-    
+
     /**
      * HTTP Status to return when an forbidden (invalid auth provided) request occurs
      */
     throwForbidden: ArangoDB.HttpStatus = 'unauthorized';
-    
+
     /**
      * Applied on client data when using `json()` inside a route
      */
     fromClient?: (doc: DocumentData, opt: RequestInfo) => DocumentData;
-    
+
     /**
      * Applied on response data when using `send()` inside a route
      */
@@ -237,11 +237,11 @@ static route(){
     const user = new User({email:'contact@example.com'});
     // save the user to the collection
     user.insert();
-    
+
     // change the user and return a list of modified properties
     user.name = 'RienNeVaPlus';
     console.log(user._saveKeys); // => ['name']
-    
+
     // save the changes
     user.save();
 }
@@ -296,10 +296,10 @@ user.replace({email:'test@example.com'}, {overwrite:true});
 Removes the document from the collection using `collection._remove`
 
 - **options**? `ArangoDB.RemoveOptions` - See [ArangoDB manual](https://www.arangodb.com/docs/stable/data-modeling-documents-document-methods.html#remove).
-  - **waitForSync**? `boolean`
-  - **overwrite**? `boolean`
-  - **returnOld**? `boolean`
-  - **silent**? `boolean`
+    - **waitForSync**? `boolean`
+    - **overwrite**? `boolean`
+    - **returnOld**? `boolean`
+    - **silent**? `boolean`
 
 **Example** (in route)
 ```ts
@@ -314,13 +314,13 @@ user.remove();
 ### `entity.save(options?)`
 
 Saves the values of all changed attributes (`entity._saveKeys`) to the documents collection. Creates a new document when no `_key` is provided. Use the option `{update:false}` to always create a new document even when a `_key` is available.
-	 
+
 - **options**? `EntitySaveOptions` - See [ArangoDB manual for insert / save](https://www.arangodb.com/docs/stable/data-modeling-documents-document-methods.html#insert--save).
-  - **keepNull**? `boolean`
-  - **mergeObjects**? `boolean`
-  - **waitForSync**? `boolean`
-  - **silent**? `boolean`
-  - **returnNew**? `boolean`
+    - **keepNull**? `boolean`
+    - **mergeObjects**? `boolean`
+    - **waitForSync**? `boolean`
+    - **silent**? `boolean`
+    - **returnNew**? `boolean`
 
 **Example** (in route)
 ```ts
@@ -459,7 +459,7 @@ class User extends Entity {
     // attribute has to be an email address
     @Attribute(string => string.email())
     email: string;
-    
+
     // attribute has to be a positive integer with a max of 100
     @Attribute(number => number.integer().positive().max(100))
     age: number;
@@ -473,7 +473,7 @@ Defines `reader` and `writer` roles to protect attributes in routes. The the [2n
 
 - **readers**? `string[]` - Roles with read permission to the attribute.
 - **writers**? `string[]` - Roles with write permission to the attribute.
- 
+
 **Example**
 ```ts
 ...
@@ -498,12 +498,12 @@ Creates an index on the attribute.
 
 - **additionalFieldsOrType**? `string[] | ArangoDB.IndexType` - List of additional fields for the index or the index type.
 - **options**? ``
-  - **type**? `"hash" | "skiplist" | "fulltext" | "geo"`
-  - **additionalFields**? `string[]`
-  - **sparse?** `boolean`
-  - **unique?** `boolean`
-  - **deduplicate**? `boolean`
- 
+    - **type**? `"hash" | "skiplist" | "fulltext" | "geo"`
+    - **additionalFields**? `string[]`
+    - **sparse?** `boolean`
+    - **unique?** `boolean`
+    - **deduplicate**? `boolean`
+
 > **Warning**: Creating an index on an existing collections can take a some time.
 
 **Example**
@@ -535,7 +535,7 @@ class User extends Entity {
     @Attribute(string)
     @OneToOne(type => Address)
     primaryAddress: Related<Address>;
-    
+
     // don't use @Attribute when the property is "virtual" and relational data is stored on the other end
     @OneToOne(type => Profile, Profile => Profile.owner)
     profile: Related<Profile>;
@@ -570,14 +570,14 @@ The `@Before.*` and `@After.*` decorators can be used as `ClassDecorator` (to ap
 
 Both decorators provide the same methods with a slightly different resolver syntax.
 - **Single listeners**
-  - `.document(resolver)` - Document is **loaded**.
-  - `.insert(resolver)` - Document is **inserted**.
-  - `.update(resolver)` - Document is **updated**.
-  - `.patch(resolver)` - Document is **patched**.
-  - `.remove(resolver)` - Document is **removed**.
+    - `.document(resolver)` - Document is **loaded**.
+    - `.insert(resolver)` - Document is **inserted**.
+    - `.update(resolver)` - Document is **updated**.
+    - `.patch(resolver)` - Document is **patched**.
+    - `.remove(resolver)` - Document is **removed**.
 - **Combined listeners**
-  - `.modify(resolver)` - Document is either **updated** or **patched**.
-  - `.write(resolver)` - Document is either **inserted**, **updated** or **patched**.
+    - `.modify(resolver)` - Document is either **updated** or **patched**.
+    - `.write(resolver)` - Document is either **inserted**, **updated** or **patched**.
 
 
 > **Warning:** Resolvers are executed when using [CRUD-Routes](#crud-like), the methods `document`, `insert`, `update`, `replace` and `remove` of [RouteArg](#routearg) or `save`, `insert`, `replace` & `remove` of an [Entity](#-entity) - but not when using `query`.
@@ -709,7 +709,7 @@ class User {
 ```
 
 > **Note:** Don't use listeners when you can use `@ForClient` / `@FromClient` instead.
- 
+
 ![divider](./assets/divider.png)
 
 ### 🗄 Entities
@@ -740,12 +740,12 @@ static route(){
 Returns a list of entity instances.
 
 - **options** `FilterOptions`
-  - **filter**? `QueryFilter` - Object of values to filter the collection.
-    - **value**? `value | [operator, value]` - Filter value can be an array with an operator like `!=` or `>` etc.
-  - **sort**? `string[]` - Sorts the results AQL style, i.e. `['email DESC','name ASC']`.
-  - **limit?** `number | [offset, count]` - Limits the results AQL style i.e. `[10, 2]`.
-  - **keep?** `string[]` - List of attributes to load from collection
-  - **unset?** `string[]` - Instead of selecting attributes with `keep`, `unset` returns every other attribute, except the provided ones.
+    - **filter**? `QueryFilter` - Object of values to filter the collection.
+        - **value**? `value | [operator, value]` - Filter value can be an array with an operator like `!=` or `>` etc.
+    - **sort**? `string[]` - Sorts the results AQL style, i.e. `['email DESC','name ASC']`.
+    - **limit?** `number | [offset, count]` - Limits the results AQL style i.e. `[10, 2]`.
+    - **keep?** `string[]` - List of attributes to load from collection
+    - **unset?** `string[]` - Instead of selecting attributes with `keep`, `unset` returns every other attribute, except the provided ones.
 
 **Example**
 ```ts
@@ -778,28 +778,28 @@ Decorates a class that has been extended by `Entities`. Collections consume `@Do
 
 - **ofDocument** `Entity | () => Entity` - the entity of the documents in the collection (can be omitted when options are provided).
 - **option**? `ArangoDB.CreateCollectionOptions` - See [ArangoDB Manual](https://www.arangodb.com/docs/3.4/data-modeling-collections-database-methods.html#create).
-  - **of**? `string` - Alias for argument `ofDocument`.
-  - **name**? `string` - Collection name, by default the class name is used.
-  - **creators** `string[]` - List of default creator roles.
-  - **readers** `string[]` - List of default reader roles.
-  - **updaters** `string[]` - List of default updater roles.
-  - **deleters** `string[]` - List of default deleter roles.
-  - **auth** `string[]` - Alias for [@Route.auth](./API.md#routeauthauthorizefunctions).
-  - **roles** `string[]` - Alias for [@Route.roles](./API.md#routerolesrolefunctions).
-  - **routes** `Array<Route | string>` - List of default routes to use - see [@Route.*](#route--get-post-put-patch-delete--list).
-  - **relations** `string[] | true` - List of related attributes that can be read from client request to any route of the collection. Can also be set to `true` to expose all related attributes.
-  - **waitForSync**? `boolean`
-  - **journalSize**? `number`
-  - **isVolatile**? `boolean`
-  - **isSystem**? `boolean`
-  - **keyOptions**? `KeyOptions`
-    - **type**? `"traditional" | "autoincrement"`
-    - **allowUserKeys**? `boolean`
-    - **increment**? `number`
-    - **offset**? `number`
-  - **numberOfShards**? `number`
-  - **shardKeys**? `string[]`
-  - **replicationFactor**? `number`
+    - **of**? `string` - Alias for argument `ofDocument`.
+    - **name**? `string` - Collection name, by default the class name is used.
+    - **creators** `string[]` - List of default creator roles.
+    - **readers** `string[]` - List of default reader roles.
+    - **updaters** `string[]` - List of default updater roles.
+    - **deleters** `string[]` - List of default deleter roles.
+    - **auth** `string[]` - Alias for [@Route.auth](./API.md#routeauthauthorizefunctions).
+    - **roles** `string[]` - Alias for [@Route.roles](./API.md#routerolesrolefunctions).
+    - **routes** `Array<Route | string>` - List of default routes to use - see [@Route.*](#route--get-post-put-patch-delete--list).
+    - **relations** `string[] | true` - List of related attributes that can be read from client request to any route of the collection. Can also be set to `true` to expose all related attributes.
+    - **waitForSync**? `boolean`
+    - **journalSize**? `number`
+    - **isVolatile**? `boolean`
+    - **isSystem**? `boolean`
+    - **keyOptions**? `KeyOptions`
+        - **type**? `"traditional" | "autoincrement"`
+        - **allowUserKeys**? `boolean`
+        - **increment**? `number`
+        - **offset**? `number`
+    - **numberOfShards**? `number`
+    - **shardKeys**? `string[]`
+    - **replicationFactor**? `number`
 
 **Example**
 ```ts
@@ -870,23 +870,23 @@ For additional details on these routes checkout the Swagger Docs at the `API` ta
 Takes a function to append additional roles for all requests to any route of the collection. It's mainly for generating user specific roles from the client `session`, eg adding a `viewer` role fow own documents.
 
 - **roleFunction** `(arg: RouteRolesArg) => string[]` - Function returning additional roles to grant. The `RouteRolesArg` contain useful tools and information:
-  - **req** `Foxx.Request`
-  - **res** `Foxx.Response` 
-  - **session** `(set?: Partial<Foxx.Session>) => Foxx.Session` - Function to read or write the current session
-  - **_key**? `string` - Document key of the current request when available
-  - **document** `() => DocumentData` - Loads & caches the document for the lifetime of the request.
-  - **collection** `ArangoDB.Collection` - The ArangoDB collection object.
-  - **path** `string` - The current path.
-  - **method** `"get" | "post" | "put" | "patch" | "delete"`
-  - **_** `(strings: TemplateStringsArray, ...args: any[]) => any[]` - Fetch documents with AQL - this is a shortcut for ``query(aql`...`).toArray()``.
-  - **aql** `ArangoDB.aql` - The ArangoDB AQL function used for queries.
-  - **query** `(query: ArangoDB.Query, options?: ArangoDB.QueryOptions) => ArangoDB.Cursor` - Execute a query the conventional way, example: ``query(aql`...`)``. Use the less verbose ``_`...` `` whenever possible.
-  - **db** `ArangoDB.Database`
-  - **roles**? `string[]`
-  - **requestedAttributes** `string[]`
-  - **hasAuth** `boolean`
-  - **auth**? `RouteAuthorize`
-  - **error** `(status: ArangoDB.HttpStatus, reason?: string) => Foxx.Response` - Send an error response
+    - **req** `Foxx.Request`
+    - **res** `Foxx.Response`
+    - **session** `(set?: Partial<Foxx.Session>) => Foxx.Session` - Function to read or write the current session
+    - **_key**? `string` - Document key of the current request when available
+    - **document** `() => DocumentData` - Loads & caches the document for the lifetime of the request.
+    - **collection** `ArangoDB.Collection` - The ArangoDB collection object.
+    - **path** `string` - The current path.
+    - **method** `"get" | "post" | "put" | "patch" | "delete"`
+    - **_** `(strings: TemplateStringsArray, ...args: any[]) => any[]` - Fetch documents with AQL - this is a shortcut for ``query(aql`...`).toArray()``.
+    - **aql** `ArangoDB.aql` - The ArangoDB AQL function used for queries.
+    - **query** `(query: ArangoDB.Query, options?: ArangoDB.QueryOptions) => ArangoDB.Cursor` - Execute a query the conventional way, example: ``query(aql`...`)``. Use the less verbose ``_`...` `` whenever possible.
+    - **db** `ArangoDB.Database`
+    - **roles**? `string[]`
+    - **requestedAttributes** `string[]`
+    - **hasAuth** `boolean`
+    - **auth**? `RouteAuthorize`
+    - **error** `(status: ArangoDB.HttpStatus, reason?: string) => Foxx.Response` - Send an error response
 
 **Example**
 ```ts
@@ -902,14 +902,14 @@ class Users extends Entities { ... }
 Takes a function to determine access permission on a document level. Used whenever there is no other way of determine the permission than deriving them from the document itself. Might cause an additional read, so it is preferred to use [`Route.roles`](#routerolesrolefunctions) whenever possible.
 
 - **authorizeFunction** `(arg: RouteAuthArg) => boolean` - Function returning whether the document can be accessed. The `RouteAuthArg` contain useful tools and information:
-  - **req** `Foxx.Request`
-  - **res** `Foxx.Response` 
-  - **session** `(set?: Partial<Foxx.Session>) => Foxx.Session` - Function to read or write the current session
-  - **method** `"get" | "post" | "put" | "patch" | "delete"`
-  - **action** `"create" | "read" | "update" | "delete"`
-  - **document** `DocumentData` - Requested document
-  - **doc** `DocumentData` - Alias for `document`
-- **method** - 
+    - **req** `Foxx.Request`
+    - **res** `Foxx.Response`
+    - **session** `(set?: Partial<Foxx.Session>) => Foxx.Session` - Function to read or write the current session
+    - **method** `"get" | "post" | "put" | "patch" | "delete"`
+    - **action** `"create" | "read" | "update" | "delete"`
+    - **document** `DocumentData` - Requested document
+    - **doc** `DocumentData` - Alias for `document`
+- **method** -
 
 **Example**
 ```ts
@@ -967,23 +967,23 @@ Routes can be further configured by using the following options.
 - **pathParams**? `[string, Schema, string?][]`
 - **queryParams**? `[string, Schema, string?][]`
 - **response**? `RouteResponse`
-  - **description**? `string`
-  - **mime** `string[]`
-  - **schema** `Foxx.Schema | Foxx.Model`
-  - **status** `RouteStatus`
+    - **description**? `string`
+    - **mime** `string[]`
+    - **schema** `Foxx.Schema | Foxx.Model`
+    - **status** `RouteStatus`
 - **errors**? `[RouteStatus, string][]`
 - **path**? `string`
 - **process**? `boolean`
 - **handlerName**? `string`
 - **handler**? `(arg: RouteArg) => any` - Handler of the current request.
 - **roles**? `string[]` - List of required roles for accessing the current request.
-  
+
 ![divider](./assets/divider.small.png)
 
 ### `@Route.GET(path?, schema?, roles?, summary?, options?)`
 
 Creates a `GET` route on `collectionName/{_key}`.
- When used as a `ClassDecorator` a default route for returning a single document of the collection is created. When used on a static method of the collection a custom route executing the very same function with the [RouteArg](#routearg) argument will be created.
+When used as a `ClassDecorator` a default route for returning a single document of the collection is created. When used on a static method of the collection a custom route executing the very same function with the [RouteArg](#routearg) argument will be created.
 
 - **path**? `string` - Rich path string (can contain simple types, i.e. `/:var=number`).
 - **schema**? `(enjoi: Enjoi) => Joi` - Joi schema for accessing the request.
@@ -998,7 +998,7 @@ Creates a `GET` route on `collectionName/{_key}`.
 @Collection(of => User)
 // executed as a ClassDecorator - creates a route on `GET users/:_key` to return a User
 @Route.GET(roles => ['admin'])
-class Users extends Entities { 
+class Users extends Entities {
     // executed as a ProperyDecorator - creates a route on `GET users/hello-world?password`
     @Route.GET(
         path => 'hello/world?password',
@@ -1011,9 +1011,9 @@ class Users extends Entities {
         const { password } = json();
         if(password !== 'top-secret')
             return error('forbidden');
-        
+
         return collection._document('123');
-    } 
+    }
 }
 ```
 ![divider](./assets/divider.small.png)
@@ -1035,7 +1035,7 @@ Creates a `POST` route on `collectionName/{_key}`. Provides a route to create  d
 @Collection(of => User)
 // executed as a ClassDecorator - creates a route on `POST users/:_key` to create Users
 @Route.POST(roles => ['guest'])
-class Users extends Entities { 
+class Users extends Entities {
     // executed as a ProperyDecorator - creates a route on `POST users/hello-world?password`
     @Route.POST('hello-world')
     static POST({ aql, query }: RouteArg){
@@ -1044,7 +1044,7 @@ class Users extends Entities {
                 FILTER u._key == '123'
                 RETURN u
         `).toArray():
-    } 
+    }
 }
 ```
 ![divider](./assets/divider.small.png)
@@ -1066,12 +1066,12 @@ Creates a `PATCH` route on `collectionName/{_key}`. Provides a route to update s
 @Collection(of => User)
 // executed as a ClassDecorator - creates a route on `PATCH users/:_key` to update Users
 @Route.PATCH(roles => ['guest'])
-class Users extends Entities { 
+class Users extends Entities {
     // executed as a ProperyDecorator - creates a route on `PATCH users/foo`
     @Route.PATCH('foo', ['admin'])
     static PATCH({ res }: RouteArg){
         res.send('foo');
-    } 
+    }
 }
 ```
 ![divider](./assets/divider.small.png)
@@ -1085,12 +1085,12 @@ The same as [`Route.PATCH`](#routepatchpath-schema-roles-summary-options) but in
 @Collection(of => User)
 // executed as a ClassDecorator - creates a route on `PUT users/:_key` to replace Users
 @Route.PUT(roles => ['guest'])
-class Users extends Entities { 
+class Users extends Entities {
     // executed as a ProperyDecorator - creates a route on `PUT users/bar`
     @Route.PUT('bar', ['admin'])
     static PUT({ res }: RouteArg){
         res.send('bar');
-    } 
+    }
 }
 ```
 ![divider](./assets/divider.small.png)
@@ -1110,12 +1110,12 @@ Creates a `DELETE` route on `collectionName/{_key}`. Provides a route to remove 
 @Collection(of => User)
 // executed as a ClassDecorator - creates a route on `DELETE users/:_key` to create Users
 @Route.DELETE(roles => ['guest'])
-class Users extends Entities { 
+class Users extends Entities {
     // executed as a ProperyDecorator - creates a route on `DELETE users/baz`
     @Route.DELETE('baz', ['admin'])
     static DELETE({ res }: RouteArg){
         res.send('baz');
-    } 
+    }
 }
 ```
 ![divider](./assets/divider.small.png)
@@ -1155,7 +1155,7 @@ class Users extends Entities {
     static FUNCTION_NAME(arg){
         return true;
     }
-    
+
     // registers"USERS::LAZYPI()"
     @AQLFunction(name => 'LAZIPI', isDeterministic => true)
     static IGNORED(arg){
@@ -1225,7 +1225,7 @@ class Pages extends Entities { }
 
 ### 🌐 `Type.Currencies`
 
-Provides support for storing numbers in multiple currency objects: 
+Provides support for storing numbers in multiple currency objects:
 
 ```
 "price": {
@@ -1323,7 +1323,7 @@ class UserProfile extends Entitiy {
     @Attribute()
     @Description('This attribute can be a useless')
     useless: boolean
-    
+
 }
 ```
 
@@ -1348,8 +1348,8 @@ const obj = $({
 
 ### Client operators inside query parameters
 In order to allow clients to provide their own [operators](https://www.arangodb.com/docs/3.4/aql/operators.html) (ie. for [`LIST`](#routelistschema-roles-summary-options) or custom routes), the parameter schema of any route can be extended by calling the custom joi method `StringSchema.operator(nameOrList?)`.
- 
- Clients can then provide the operator as a prefix of the parameter value - separated by `config.paramOperatorSeparator` (default `|`). For example `?attr=>=|10`.
+
+Clients can then provide the operator as a prefix of the parameter value - separated by `config.paramOperatorSeparator` (default `|`). For example `?attr=>=|10`.
 
 > ==, !=, <, <=, >, >=, IN, NOT IN, LIKE, =~, !~
 
