@@ -46,7 +46,7 @@ function clean(val: any): any {
     case "string":
       const indexOf = val.indexOf(" ");
       return (indexOf > -1 ? val.substr(0, indexOf) : val).replace(
-        /[^a-zA-Z0-9-_.]/g,
+        /[^a-zA-Z0-9-_.\/]/g,
         ""
       );
   }
@@ -69,7 +69,9 @@ export function queryBuilder(
               Array.isArray(value) && value[0] === "HAS"
               ? escape(value[1]) + " IN TO_ARRAY(i." + clean(key) + ")"
               : // ['!=', value] => FILTER i.key != value
-              Array.isArray(value) && operators.includes(value[0])
+              Array.isArray(value) &&
+                typeof value[0] === "string" &&
+                operators.includes(value[0])
               ? "i." + clean(key) + " " + value[0] + " " + escape(value[1])
               : // ['value1','value2'] => FILTER i.key IN [...values]
               Array.isArray(value)
